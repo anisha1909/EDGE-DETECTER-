@@ -1,0 +1,35 @@
+module tb_edge_detectors;  
+reg clk_tb;  
+reg signal_tb;  
+wire rising_edge_tb;  
+wire falling_edge_tb;  
+rising_edge_detector red (  
+.clk_in(clk_tb),  
+.input_signal(signal_tb),  
+.detected_edge(rising_edge_tb)  
+);  
+falling_edge_detector fed (  
+.clk_in(clk_tb),  
+.input_signal(signal_tb),  
+.detected_edge(falling_edge_tb)  
+);  
+initial begin  
+clk_tb = 0;  
+signal_tb = 0;  
+#10;  
+signal_tb = 1;  
+#10;  
+signal_tb = 0;  
+#10;  
+signal_tb = 1;  
+#10;  
+signal_tb = 0;  
+#10;  
+#20 $finish;  
+end  
+always #5 clk_tb = ~clk_tb;  
+initial begin  
+$monitor("Time = %0t : signal_tb = %b, rising_edge_tb = %b, falling_edge_tb = %b", $time, signal_tb,  
+rising_edge_tb, falling_edge_tb);  
+end  
+endmodule  
