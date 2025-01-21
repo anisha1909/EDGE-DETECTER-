@@ -1,0 +1,22 @@
+module rising_edge_detector (  
+input wire clk_in,  
+input wire input_signal,  
+output reg detected_edge  
+);  
+reg delayed_signal;  
+always @(posedge clk_in) begin  
+delayed_signal <= input_signal;  
+detected_edge <= input_signal & ~delayed_signal;  
+end  
+endmodule  
+module falling_edge_detector (  
+input wire clk_in,  
+input wire input_signal,  
+output reg detected_edge  
+);  
+reg delayed_signal;  
+always @(posedge clk_in) begin  
+delayed_signal <= input_signal;  
+detected_edge <= ~input_signal & delayed_signal;  
+end  
+endmodule  
